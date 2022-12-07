@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, status, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from .models import *
 
 from . import models
 from . import serializers
@@ -22,3 +23,8 @@ class UserCreate(APIView):
                 json = serializer.data
                 return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class Get_Profile(viewsets.ModelViewSet):
+    # permission_classes = (permissions.AllowAny)
+    queryset = Profile.objects.all()
+    serializer_class = serializers.UserSerializer
