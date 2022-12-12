@@ -12,10 +12,17 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+# Actual directory user files go to
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
+
+# URL used to access the media
+MEDIA_URL = '/media/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -28,9 +35,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-CSRF_TRUSTED_ORIGINS = ['https://*.gitpod.io']
+# non-deployed version!
+# CSRF_TRUSTED_ORIGINS = ['https://*.gitpod.io']
+# CORS_ALLOWED_ORIGIN_REGEXES = [
+#     r"^https://.*\.gitpod\.io$",
+# ]
+
+# Delpoyed version!
+CSRF_TRUSTED_ORIGINS = ['https://danstagram-ad70a.web.app']
 CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://.*\.gitpod\.io$",
+    "https://danstagram-ad70a.web.app",
 ]
 
 AUTH_USER_MODEL = 'backend.Profile'
