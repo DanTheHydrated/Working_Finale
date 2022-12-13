@@ -1,8 +1,9 @@
 from rest_framework import serializers
 from .models import *
+from .fields import *
 
 class UserSerializer(serializers.ModelSerializer):
-    # pfp = serializers.ImageField(max_length=None,use_url=True)
+    # pfp = ForeignKeyField(queryset=Post.objects.all(), serializer = PostSerializer)
     class Meta:
         model = Profile
         fields = '__all__'
@@ -46,9 +47,10 @@ class CommentSerializer(serializers.Serializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    comments = CommentSerializer(many=True, read_only=True)
+    # comments = CommentSerializer(many=True, read_only=True)
     picture = serializers.URLField(required=True)
-    user = serializers.ReadOnlyField(source='Profile.id')
+    # user = serializers.ReadOnlyField(source='Profile.username')
+    poster = ForeignKeyField(queryset=Profile.objects.all(), serializer = UserSerializer)
     class Meta:
         model = Post 
         fields = '__all__'

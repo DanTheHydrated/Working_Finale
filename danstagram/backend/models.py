@@ -4,7 +4,7 @@ from django.contrib.auth.models import  AbstractUser
 class Profile(AbstractUser):
     # handle = models.CharField(unique=True, max_length=15)
     bio = models.CharField(blank=True, max_length=300)
-    pfp = models.ImageField(upload_to='users/', max_length=254, null = True, blank = True)
+    # pfp = models.ForeignKey('Post', on_delete=models.PROTECT, null=True, blank=True)
     followers = models.ManyToManyField(
         'Profile',
         related_name='Follower_Profiles',
@@ -39,7 +39,7 @@ class Profile(AbstractUser):
 
 class Post(models.Model):
     poster = models.ForeignKey('Profile', on_delete=models.PROTECT, null=True, blank=True)
-    picture = models.URLField(null=False, blank=False, max_length=200, default='gs://danstagram-ad70a.appspot.com/posts/Anon.png')
+    picture = models.URLField(null=False, blank=False, max_length=200, default='https://firebasestorage.googleapis.com/v0/b/danstagram-ad70a.appspot.com/o/posts%2FAnon.png?alt=media&token=25131999-4c9d-4362-b093-dccadb402b2d')
     title = models.CharField(max_length=20, null= True, blank = True)
     description = models.CharField(blank=True, max_length=150)
     created = models.DateTimeField(auto_now_add=True)
